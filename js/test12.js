@@ -47,6 +47,7 @@ Key = {
 
 		},
     onKeydown: function(event){
+		
             Key.disableAll();
         /* Test 4 */
             /* TU CÓDIGO AQUÍ */
@@ -56,7 +57,7 @@ Key = {
 		  
 		   
            inputStates[keyCodes[event.keyCode]] = true;
-		   if(inputStates.space){
+		   if(!game.ended && inputStates.space){
 				game.pause = !game.pause;
 				if(game.pause){
 					game.soundtrack.pause();
@@ -111,7 +112,7 @@ game = {
 
 	loadAssets: function() {
 		this.soundtrack = new Howl({
-			src: ['http://localhost/dawe/practica2/res/soundtrack.m4a'],
+			src: ['https://amaiadp.github.io/res/soundtrack.m4a'],
 			volume: 1,
 			onload: () => {
 				this.soundtrack.play();
@@ -185,7 +186,7 @@ game = {
 					Grid.sparx[i].paint();
 				}
 				// test 11
-				//Qix.update();
+				Qix.update();
 				Qix.draw();
 
 
@@ -1350,7 +1351,11 @@ Player = {
                                  * Usa esa variable para actualizar el atributo score en
                                  * Player y muéstrala en pantalla  (add_score ya está implementado...)
                                  * */
-								Player.add_score(5*n);
+								 if(velocidad=='shift'){
+									Player.add_score(10*n);
+								 }else{
+									 Player.add_score(5*n);
+								 }
 								velocidad=null;
                                 Grid.current_filling = n;
                                 Grid.trace([x,y], this.launch_point, da, 11, Player.WALL); // # rewall
@@ -1364,7 +1369,11 @@ Player = {
                                 Grid.current_filling = n;
                                 // test 12 
                                      // tu código aquí. tal vez también necesites actualizar aquí la puntuación...
-								Player.add_score(5*n);
+								if(velocidad=='shift'){
+									Player.add_score(10*n);
+								 }else{
+									 Player.add_score(5*n);
+								 }
 								velocidad=null;
                                 Grid.set(xa,ya, 7);
                                 Grid.set(x,y, 7);
@@ -1463,8 +1472,8 @@ Player = {
    * tu código aquí
    * Crea dos Sparx nuevos en el array sparx de Grid, ambos saliendo de la parte superior central del grid, 
    * uno en dirección horaria y otro en dirección antihoraria */
- // Grid.sparx.push(new Sparx([96,2],[-1,0]));
-  // Grid.sparx.push(new Sparx([96,2],[1,0])); 
+ Grid.sparx.push(new Sparx([96,2],[-1,0]));
+  Grid.sparx.push(new Sparx([96,2],[1,0])); 
    game.loadAssets();
   game.start();
 
